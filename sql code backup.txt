@@ -1,0 +1,31 @@
+USE resturantpos3;
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+CREATE TABLE sales (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    sale_date DATE NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(50) NOT NULL
+);
+INSERT INTO users (username, password) VALUES ('admin', 'admin');
+INSERT INTO products (name, category, price) VALUES
+('Nachos', 'Snacks', 25),
+('Fries', 'Snacks', 15),
+('Lemonade', 'Beverages', 10),
+('Iced Tea', 'Beverages', 12);
+INSERT INTO products (name, category, price) VALUES
+('STEAK', 'Main Dish', '150');
+ALTER TABLE sales DROP FOREIGN KEY sales_ibfk_1;
+ALTER TABLE sales ADD CONSTRAINT sales_ibfk_1 FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE;
+SHOW TABLES;
+DESCRIBE sales;
